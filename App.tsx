@@ -1,21 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { TextInput, TouchableOpacity, View, Text } from "react-native";
+import { styles } from "./styles";
 
-export default function App() {
+export function AddNewTodo(){
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </SafeAreaView >
-    </SafeAreaProvider>
-  );
+    <View style={styles.container}>
+      <TextInput
+        style={styles.inputField}
+        placeholder="Adicione uma nova tarefa"
+        placeholderTextColor="#808080"
+      />
+      <TouchableOpacity 
+        style={styles.button
+        }>
+        <View style={styles.iconButton}>
+          <Text style={styles.textButton}>+</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
