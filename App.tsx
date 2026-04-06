@@ -1,77 +1,21 @@
-import React, { useState } from 'react';
-import { View,Text,TextInput, Button, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-import {styles} from './styles'
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-interface TodoItem {
-  id: string;
-  text: string;
-  isCompleted: boolean;
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <Text>Open up App.tsx to start working on your app!</Text>
+        <StatusBar style="auto" />
+      </SafeAreaView >
+    </SafeAreaProvider>
+  );
 }
 
-const App = () => {
-  const [todos, setTodos] = useState<TodoItem[]>([]);
-  const [newTodoText, setNewTodoText] = useState('');
-
-  const addTodo = () => {
-    if (newTodoText.trim().length > 0) {
-      const newTodo: TodoItem = {
-        id: Math.random().toString(),
-        text: newTodoText,
-        isCompleted: false,
-      };
-      setTodos((currentTodos) => [...currentTodos, newTodo]);
-      setNewTodoText('');
-    }
-  };
-
-  const toggleTodoCompleted = (id: string) => {
-    setTodos((currentTodos) =>
-      currentTodos.map((todo) =>
-        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
-      )
-    );
-  };
-
- 
-  const deleteTodo = (id: string) => {
-    setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== id));
-  };
-
-  
-  const renderTodoItem = ({ item }: { item: TodoItem }) => (
-    <View style={styles.todoItem}>
-      <TouchableOpacity
-        onPress={() => toggleTodoCompleted(item.id)}
-        style={styles.checkbox}
-      >
-        <Text style={item.isCompleted ? styles.completedText : styles.todoText}>
-          {item.text}
-        </Text>
-      </TouchableOpacity>
-      <Button title="Deletar" onPress={() => deleteTodo(item.id)} />
-    </View>
-  );
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Todo List</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Adicionar nova task"
-          value={newTodoText}
-          onChangeText={setNewTodoText}
-        />
-        <Button title="Adicionar" onPress={addTodo} />
-      </View>
-      <FlatList
-        data={todos}
-        renderItem={renderTodoItem}
-        keyExtractor={(item) => item.id}
-        style={styles.list}
-      />
-    </View>
-  );
-};
-
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
